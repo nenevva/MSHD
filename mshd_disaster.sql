@@ -18,7 +18,7 @@
 --
 -- Table structure for table `disaster`
 --
-CREATE DATABASE mshd;
+/*CREATE DATABASE mshd;*/
 USE mshd;
 DROP TABLE IF EXISTS `disaster`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
