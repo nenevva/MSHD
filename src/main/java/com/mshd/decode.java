@@ -135,6 +135,7 @@ public class decode {
                 +"灾情指标: "+indicator;
     }
 
+
     public static void main(String[] args) {
         // TODO Auto-generated method stub
         Scanner get=new Scanner(System.in);
