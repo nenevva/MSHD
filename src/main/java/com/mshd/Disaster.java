@@ -21,6 +21,11 @@ public class Disaster {
         return detail;
     }
 
+    public static boolean disValidate(Disaster dis) {
+        //TODO 校验数据是否完整有效
+        return true;
+    }
+
     public static void disInsert(Disaster dis) throws SQLException, ClassNotFoundException {
 
         //在数据库中插入一行灾情数据
