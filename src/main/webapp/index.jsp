@@ -7,7 +7,7 @@
 <body>
 </h1>
 <br/>
-<form action="${pageContext.request.contextPath}/MSServlet" method="get">
+<form action="MSServlet" method="post" enctype="multipart/form-data">
     <label>编号：<input type="text" name="id"></label><br/>
     <label>详细信息：<input type="text" name="detail"></label><br/>
     <label>上传附件：<input type="file" name="uploadFile"></label><br/>

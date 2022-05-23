@@ -20,6 +20,7 @@ public class DisplayAll extends HttpServlet {
             response.setContentType("text/html;charset=utf-8");
             response.setCharacterEncoding("UTF-8");
 
+            new JDBC();
             Connection conn = JDBC.getConnection();
             PreparedStatement prep = conn.prepareStatement("select * from disaster");
             ResultSet result = prep.executeQuery();
@@ -30,6 +31,8 @@ public class DisplayAll extends HttpServlet {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 }

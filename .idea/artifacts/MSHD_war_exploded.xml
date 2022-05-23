@@ -6,13 +6,17 @@
         <exploded>true</exploded>
         <module>MSHD</module>
         <packaging>war</packaging>
-        <unpackNestedArchives>false</unpackNestedArchives>
       </options>
     </properties>
     <root id="root">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
           <element id="module-output" name="MSHD" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: commons-io:commons-io:2.11.0" />
+          <element id="library" level="project" name="Maven: portlet-api:portlet-api:1.0" />
+          <element id="library" level="project" name="Maven: commons-fileupload:commons-fileupload:1.4" />
         </element>
       </element>
       <element id="directory" name="META-INF">
