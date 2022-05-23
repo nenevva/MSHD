@@ -18,6 +18,7 @@ import static com.mshd.Disaster.disInsert;
 import static com.mshd.Disaster.disValidate;
 
 @WebServlet(urlPatterns = "/MSServlet")
+@MultipartConfig
 public class ManualSubmit extends HttpServlet {
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -27,80 +28,25 @@ public class ManualSubmit extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         PrintWriter pw = response.getWriter();
 
-        String savePath = this.getServletContext().getRealPath("/WEB-INF/upload");
-        String tempPath = this.getServletContext().getRealPath("/WEB-INF/temp");
+        Part part = request.getPart("file");
+        String path = request.getServletContext().getRealPath("/");
+        String fileName = part.getSubmittedFileName();
+        part.write(path + fileName);
 
-        File tmpFile = new File(tempPath);
-        if (!tmpFile.exists()) {
-            tmpFile.mkdir();
+        Disaster dis = new Disaster(request.getParameter("id"), request.getParameter("detail"), fileName);
+
+        try {
+            disInsert(dis);
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
 
-        String message = "";
-
-        try{
-            DiskFileItemFactory factory = new DiskFileItemFactory();
-            factory.setRepository(tmpFile);
-            ServletFileUpload upload = new ServletFileUpload(factory);
-            upload.setHeaderEncoding("UTF-8");
-
-            if(!ServletFileUpload.isMultipartContent(request)){
-                return;
-            }
-
-            List<FileItem> list = upload.parseRequest(request);
-            String filename = "";
-            for(FileItem item : list){
-                if(!item.isFormField()){
-                    filename = item.getName();
-                    if(filename==null || filename.trim().equals("")){
-                        continue;
-                    }
-                    InputStream in = item.getInputStream();
-                    String saveFilename = makeFileName(filename);
-                    String realSavePath = makePath(saveFilename, savePath);
-                    FileOutputStream out = new FileOutputStream(realSavePath + "\\" + saveFilename);
-                    byte[] buffer = new byte[1024];
-                    int len = 0;
-                    while((len=in.read(buffer))>0){
-                        out.write(buffer, 0, len);
-                    }
-                    in.close();
-                    out.close();
-                    item.delete();
-                    message = "文件上传成功！";
-                }
-            }
-            Disaster dis = new Disaster(request.getParameter("id"), request.getParameter("detail"), filename);
-
-            if (!disValidate(dis)) {
-                pw.println("插入失败");
-                return;
-            }
-
-            try {
-                disInsert(dis);
-            } catch (SQLException | ClassNotFoundException e) {
-                throw new RuntimeException(e);
-            }
-
-            pw.println("插入成功");
-        }catch (FileUploadBase.FileSizeLimitExceededException e) {
-            e.printStackTrace();
-            request.setAttribute("message", "单个文件超出最大值！！！");
-            request.getRequestDispatcher("/message.jsp").forward(request, response);
-        }catch (FileUploadBase.SizeLimitExceededException e) {
-            e.printStackTrace();
-            request.setAttribute("message", "上传文件的总的大小超出限制的最大值！！！");
-            request.getRequestDispatcher("/message.jsp").forward(request, response);
-        }catch (Exception e) {
-            message= "文件上传失败！";
-            e.printStackTrace();
-        }
+        pw.println("插入成功");
     }
 
     private String makeFileName(String filename){
         //为防止文件覆盖的现象发生，要为上传文件产生一个唯一的文件名
-        return UUID.randomUUID().toString() + "_" + filename;
+        return UUID.randomUUID() + "_" + filename;
     }
 
     private String makePath(String filename,String savePath){

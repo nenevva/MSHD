@@ -5,9 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class Disaster {
-    private String id;
-    private String detail;
-    private String file;
+    private final String id;
+    private final String detail;
+    private final String file;
     public Disaster(String id, String detail, String file) {
         this.id = id;
         this.detail = detail;

@@ -1,9 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="MSHD:jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/MSHD_jar</output-path>
-    <root id="archive" name="MSHD.jar">
-      <element id="module-output" name="MSHD" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/src/main/webapp/WEB-INF/lib/mysql-connector-java-8.0.29.jar" path-in-jar="/" />
-    </root>
-  </artifact>
-</component>

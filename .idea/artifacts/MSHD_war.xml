@@ -1,13 +1,7 @@
 <component name="ArtifactManager">
-  <artifact type="war" name="MSHD:war">
-    <output-path>$PROJECT_DIR$/target</output-path>
-    <properties id="maven-jee-properties">
-      <options>
-        <module>MSHD</module>
-        <packaging>war</packaging>
-      </options>
-    </properties>
-    <root id="archive" name="MSHD-1.0-SNAPSHOT.war">
+  <artifact type="war" build-on-make="true" name="MSHD:war">
+    <output-path>$PROJECT_DIR$/out/artifacts/MSHD_war</output-path>
+    <root id="archive" name="MSHD_war.war">
       <element id="artifact" artifact-name="MSHD:war exploded" />
     </root>
   </artifact>
