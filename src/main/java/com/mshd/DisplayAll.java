@@ -20,11 +20,13 @@ public class DisplayAll extends HttpServlet {
             response.setContentType("text/html;charset=utf-8");
             response.setCharacterEncoding("UTF-8");
 
+            //在数据库中查询
             new JDBC();
             Connection conn = JDBC.getConnection();
             PreparedStatement prep = conn.prepareStatement("select * from disaster");
             ResultSet result = prep.executeQuery();
 
+            //输出结果到页面上
             PrintWriter pw = response.getWriter();
             while (result.next()) {
                 pw.println(result.getString("id") + " " + result.getString("detail") + "</br>");

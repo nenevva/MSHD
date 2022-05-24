@@ -7,12 +7,15 @@
 <body>
 </h1>
 <br/>
+
 <form action="MSServlet" method="post" enctype="multipart/form-data">
     <label>编号：<input type="text" name="id"></label><br/>
     <label>详细信息：<input type="text" name="detail"></label><br/>
     <label>上传附件：<input type="file" name="file"></label><br/>
     <input type="submit" value="提交"/>
 </form>
+
 <a href="${pageContext.request.contextPath}/DisplayAll">查看所有数据</a>
+
 </body>
 </html>

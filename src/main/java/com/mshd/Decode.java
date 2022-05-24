@@ -13,7 +13,7 @@ import java.util.Scanner;
  * 载体编码一位，具体信息见项目需求
  * 灾情编码分为灾害编码（3位）灾情指标代码（3位）
 */
-public class decode {
+public class Decode {
 
     public static String address_decode(String address_code){
         DB db=new DB();
