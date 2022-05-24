@@ -23,7 +23,7 @@ public class ManualSubmit extends HttpServlet {
         //获取用户上传的文件
         Part part = request.getPart("file");
         //文件保存路径
-        String path = request.getServletContext().getRealPath("/WEB_INF/upload");
+        String path = request.getServletContext().getRealPath("/WEB-INF/upload");
         File file = new File(path);
         //如果目录不存在，创建目录
         if(!file.exists()){
@@ -32,7 +32,7 @@ public class ManualSubmit extends HttpServlet {
         //获取文件名
         String fileName = part.getSubmittedFileName();
         //执行写入
-        part.write(path + fileName);
+        part.write(path + "/" + fileName);
 
         //写入数据库
         Disaster dis = new Disaster(request.getParameter("id"), request.getParameter("detail"), fileName);
