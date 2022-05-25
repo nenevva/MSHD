@@ -7,11 +7,9 @@ import java.sql.SQLException;
 public class Disaster {
     private final String id;
     private final String detail;
-    private final String file;
-    public Disaster(String id, String detail, String file) {
+    public Disaster(String id, String detail) {
         this.id = id;
         this.detail = detail;
-        this.file = file;
     }
 
     public String getId() {
@@ -20,10 +18,6 @@ public class Disaster {
 
     public String getDetail() {
         return detail;
-    }
-
-    public String getFile() {
-        return file;
     }
     public static boolean disValidate(Disaster dis) {
         //TODO 校验数据是否完整有效
@@ -35,10 +29,9 @@ public class Disaster {
         //在数据库中插入一行灾情数据
         new JDBC();
         Connection conn = JDBC.getConnection();
-        PreparedStatement pst = conn.prepareStatement("INSERT INTO disaster values(?,?,?)");
+        PreparedStatement pst = conn.prepareStatement("INSERT INTO disaster values(?,?)");
         pst.setString(1, dis.getId());
         pst.setString(2, dis.getDetail());
-        pst.setString(3, dis.getFile());
         pst.execute();
     }
 }

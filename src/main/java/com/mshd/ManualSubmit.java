@@ -31,11 +31,13 @@ public class ManualSubmit extends HttpServlet {
         }
         //获取文件名
         String fileName = part.getSubmittedFileName();
+        String extName = fileName.substring(fileName.lastIndexOf(".") + 1);
+        fileName = request.getParameter("id") + "." + extName;
         //执行写入
         part.write(path + "/" + fileName);
 
         //写入数据库
-        Disaster dis = new Disaster(request.getParameter("id"), request.getParameter("detail"), fileName);
+        Disaster dis = new Disaster(request.getParameter("id"), request.getParameter("detail"));
 
         try {
             disInsert(dis);

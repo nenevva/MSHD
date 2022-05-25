@@ -23,9 +23,8 @@ public class Decode {
     String classification;
     String indicator;
 
-
     public String address_decode(String address_code) throws SQLException {
-        String sql="SELECT *FROM regionTest";
+        String sql="SELECT * FROM regionTest";
         ResultSet rs=jdbc.query(sql);
         try {
             while(rs.next()) {
