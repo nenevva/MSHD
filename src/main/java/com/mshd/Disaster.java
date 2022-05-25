@@ -7,6 +7,7 @@ import java.sql.SQLException;
 public class Disaster {
     private final String id;
     private final String detail;
+
     public Disaster(String id, String detail) {
         this.id = id;
         this.detail = detail;

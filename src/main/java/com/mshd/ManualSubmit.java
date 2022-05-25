@@ -2,11 +2,10 @@ package com.mshd;
 
 import java.io.*;
 import java.sql.SQLException;
-import java.util.UUID;
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
-
+import com.google.gson.*;
 import static com.mshd.Disaster.disInsert;
 
 @WebServlet(urlPatterns = "/MSServlet")
@@ -44,7 +43,7 @@ public class ManualSubmit extends HttpServlet {
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
-
-        pw.println("插入成功");
+        //向回应中写入信息
+        response.getWriter().write("Succeed!");
     }
 }

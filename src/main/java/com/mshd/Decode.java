@@ -16,6 +16,8 @@ import java.sql.SQLException;
 public class Decode {
 
     JDBC jdbc = null;
+    String id;
+    String detail;
     String address;
     String date;
     String source;
@@ -126,15 +128,17 @@ public class Decode {
     /**
      * 总体的解码函数，各个分函数也可以在上面根据函数名字来调用
     * */
-    public Decode(String code) throws SQLException, ClassNotFoundException {
+    public Decode(String id, String detail) throws SQLException, ClassNotFoundException {
         jdbc = new JDBC();
 
-        address = address_decode(code.substring(0,12));
-        date = date_decode(code.substring(12,26));
-        source = source_decode(code.substring(26,29));
-        carrier = carrier_decode(code.substring(29,30));
-        classification = classification_decode(code.substring(30,33));
-        indicator = indicator_decode(code.substring(33,36));
+        this.id = id;
+        this.detail = detail;
+        address = address_decode(id.substring(0,12));
+        date = date_decode(id.substring(12,26));
+        source = source_decode(id.substring(26,29));
+        carrier = carrier_decode(id.substring(29,30));
+        classification = classification_decode(id.substring(30,33));
+        indicator = indicator_decode(id.substring(33,36));
     }
 
     public String getAddress() {
