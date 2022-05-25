@@ -16,6 +16,11 @@ public class JDBC {
         conn = DriverManager.getConnection(url, username, password);
     }
 
+    public ResultSet query(String sql) throws SQLException {
+        Statement stmt = conn.createStatement();
+        return stmt.executeQuery(sql);
+    }
+
     public static Connection getConnection() {
         return conn;
     }

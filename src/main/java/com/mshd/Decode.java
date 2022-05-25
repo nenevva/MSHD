@@ -1,9 +1,9 @@
 package com.mshd;
 
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Scanner;
 
 /**
  * 解码
@@ -15,10 +15,18 @@ import java.util.Scanner;
 */
 public class Decode {
 
-    public static String address_decode(String address_code){
-        DB db=new DB();
+    JDBC jdbc = null;
+    String address;
+    String date;
+    String source;
+    String carrier;
+    String classification;
+    String indicator;
+
+
+    public String address_decode(String address_code) throws SQLException {
         String sql="SELECT *FROM regionTest";
-        ResultSet rs=db.query(sql);
+        ResultSet rs=jdbc.query(sql);
         try {
             while(rs.next()) {
                 String province_id=rs.getString(1);
@@ -34,7 +42,7 @@ public class Decode {
         return "address code not exist!";
     }
 
-    public static String date_decode(String date_code){
+    public String date_decode(String date_code){
         String year = date_code.substring(0,4);
         String month = date_code.substring(4,6);
         String day = date_code.substring(6,8);
@@ -44,10 +52,9 @@ public class Decode {
         return "事件发生具体时间 :"+year+" "+month+" "+day+" "+hour+":"+minute+":"+second;
     }
 
-    public static String source_decode(String source_code){
-        DB db=new DB();
+    public String source_decode(String source_code) throws SQLException {
         String sql="SELECT *FROM source";
-        ResultSet rs=db.query(sql);
+        ResultSet rs=jdbc.query(sql);
         try {
             while(rs.next()) {
                 String source_id=rs.getString(1);
@@ -63,10 +70,9 @@ public class Decode {
         return "source code not exist!";
     }
 
-    public static String carrier_decode(String carrier_code){
-        DB db=new DB();
+    public String carrier_decode(String carrier_code) throws SQLException {
         String sql="SELECT *FROM carrier";
-        ResultSet rs=db.query(sql);
+        ResultSet rs=jdbc.query(sql);
         try {
             while(rs.next()) {
                 String carrier_id=rs.getString(1);
@@ -82,10 +88,9 @@ public class Decode {
         return "carrier code not exist!";
     }
 
-    public static String disaster_classification_decode(String disaster_classification_code){
-        DB db=new DB();
+    public String classification_decode(String disaster_classification_code) throws SQLException {
         String sql="SELECT *FROM disaster_classification";
-        ResultSet rs=db.query(sql);
+        ResultSet rs=jdbc.query(sql);
         try {
             while(rs.next()) {
                 String disaster_id=rs.getString(1);
@@ -101,10 +106,9 @@ public class Decode {
         return "disaster classification code not exist!";
     }
 
-    public static String disaster_indicator_decode(String disaster_indicator_code){
-        DB db=new DB();
+    public String indicator_decode(String disaster_indicator_code) throws SQLException {
         String sql="SELECT *FROM disaster_indicator";
-        ResultSet rs=db.query(sql);
+        ResultSet rs=jdbc.query(sql);
         try {
             while(rs.next()) {
                 String indicator_id=rs.getString(1);
@@ -123,26 +127,38 @@ public class Decode {
     /**
      * 总体的解码函数，各个分函数也可以在上面根据函数名字来调用
     * */
-    public static String decode(String code){
-        String address = address_decode(code.substring(0,12));
-        String date = date_decode(code.substring(12,26));
-        String source = source_decode(code.substring(26,29));
-        String carrier = carrier_decode(code.substring(29,30));
-        String disaster_classification = disaster_classification_decode(code.substring(30,33));
-        String indicator = disaster_indicator_decode(code.substring(33,36));
-        return "解码结果:详细地址："+ address+" "+date+" 灾情来源: "+source
-                +" 信息载体是: "+carrier+" 灾情分类为: "+disaster_classification
-                +"灾情指标: "+indicator;
+    public Decode(String code) throws SQLException, ClassNotFoundException {
+        jdbc = new JDBC();
+
+        address = address_decode(code.substring(0,12));
+        date = date_decode(code.substring(12,26));
+        source = source_decode(code.substring(26,29));
+        carrier = carrier_decode(code.substring(29,30));
+        classification = classification_decode(code.substring(30,33));
+        indicator = indicator_decode(code.substring(33,36));
     }
 
-    public static void main(String[] args) {
-        // TODO Auto-generated method stub
-        Scanner get=new Scanner(System.in);
-        String code = "123456789000202205131422521001201101";
-        System.out.println(code+" is waiting to handle:");
-        String result = decode("123456789000202205131422521001201101");
-        System.out.println(result);
-        get.close();
+    public String getAddress() {
+        return address;
     }
 
+    public String getDate() {
+        return date;
+    }
+
+    public String getSource() {
+        return source;
+    }
+
+    public String getCarrier() {
+        return carrier;
+    }
+
+    public String getClassification() {
+        return classification;
+    }
+
+    public String getIndicator() {
+        return indicator;
+    }
 }

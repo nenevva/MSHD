@@ -29,7 +29,8 @@ public class DisplayAll extends HttpServlet {
             //输出结果到页面上
             PrintWriter pw = response.getWriter();
             while (result.next()) {
-                pw.println(result.getString("id") + " " + result.getString("detail") + "</br>");
+                Decode dc = new Decode(result.getString("id"));
+                pw.println(result.getString("id") + " 地址：" + dc.getAddress() + " 日期：" + dc.getDate() + " 来源：" + dc.getSource() + " 载体：" + dc.getCarrier() + " 分类：" + dc.getClassification() + " 指标：" + dc.getIndicator() + " 描述：" + result.getString("detail") + "</br>");
             }
         } catch (SQLException e) {
             e.printStackTrace();
